@@ -12,8 +12,7 @@ Game.Mixins.Moveable = {
       this._y = y;
       return true;
       // if tile is diggable, dig through it
-    } else if (tile.isDiggable()) {
-      console.log("digging through tile (" + x + "," + y + ")")
+    } else if (tile.isDiggable()) {      
       map.dig(x, y);
       return true;
     }
