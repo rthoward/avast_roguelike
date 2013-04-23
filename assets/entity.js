@@ -5,6 +5,27 @@ Game.Entity = function(properties) {
   this._name = properties['name'] || '';
   this._x = properties['x'] || 0;
   this._y = properties['y'] || 0;
+
+  this._attachedMixins = {};
+
+  var mixins = properties['mixins'] || [];
+
+  // copy all properties for all mixins except name and init properties
+  for (var i = 0; i < mixins.length; i++) {
+    for (var key in mixins[i]) {
+      if (key != 'init' && key != 'name' && !this.hasOwnProperty(key)) {
+        this[key] = mixins[i][key];
+      }
+    }
+
+    // add mixin name to list of attached mixins
+    this._attachedMixins[mixins[i].name] = true;
+
+    // call mixin init, if it exists
+    if (mixins[i].init) {
+      mixins[i].init.call(this, properties);
+    }
+  }
 }
 
 Game.Entity.extend(Game.Glyph);
