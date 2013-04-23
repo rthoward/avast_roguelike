@@ -1,6 +1,3 @@
-var WIDTH = 80;
-var HEIGHT = 20;
-
 var Game = {
   _display: null,
   _width: 80,
@@ -9,7 +6,10 @@ var Game = {
   _currentScreen: null,
 
   init: function() {
-    this._display = new ROT.Display({width: this._width, height: this._height});
+    this._display = new ROT.Display({width: this._width, 
+                                     height: this._height,
+                                     fontFamily: "consolas",
+                                     fontSize: 20});
 
     var game = this;
     var bindEventToScreen = function(event) {
