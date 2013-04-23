@@ -16,6 +16,8 @@ var Game = {
       window.addEventListener(event, function(e) {
         if (game._currentScreen !== null) {
           game._currentScreen.handleInput(event, e);
+          game._display.clear();
+          game._currentScreen.render(game._display);
         }
       });
     }
