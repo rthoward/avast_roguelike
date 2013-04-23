@@ -26,9 +26,9 @@ var Game = {
     bindEventToScreen('keypress');
   },
 
-  getDisplay: function() {
-    return this._display;
-  },
+  getDisplay: function()      { return this._display; },
+  getScreenWidth: function()  { return this._width; },
+  getScreenHeight: function() { return this._height; },
 
   switchScreen: function(newScreen) {
     
