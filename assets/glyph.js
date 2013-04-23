@@ -1,9 +1,8 @@
-Game.Glyph = function(chr, foreground, background) {
-
-  // members with default values
-  this._char = chr || ' ';
-  this._foreground = foreground || 'white';
-  this._background = background || 'black';
+Game.Glyph = function(properties) {
+  properties = properties || {};
+  this._char = properties['character'] || ' ';
+  this._foreground = properties['foreground'] || 'white';
+  this._background = properties['background'] || 'black';  
 }
 
 Game.Glyph.prototype.getChar = function() {
