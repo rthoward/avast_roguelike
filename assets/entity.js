@@ -30,6 +30,14 @@ Game.Entity = function(properties) {
 
 Game.Entity.extend(Game.Glyph);
 
+Game.Entity.prototype.hasMixin = function(obj) {
+  if (typeof obj === 'object') {
+    return this._attachedMixins[obj.name];
+  } else {
+    return this._attachedMixins[name];
+  }
+}
+
 Game.Entity.prototype.setName = function(name) {
   this._name = name;
 }
