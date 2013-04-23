@@ -28,17 +28,19 @@ Game.Screen.playScreen = {
 
   enter: function() {
     var map = [];
+    var mapWidth = 500;
+    var mapHeight = 500;
 
     // create empty map of nullTiles
-    for (var x = 0; x < 500; x++) {
+    for (var x = 0; x < mapWidth; x++) {
       map.push([]);
-      for (var y = 0; y < 500; y++) {
+      for (var y = 0; y < mapHeight; y++) {
         map[x].push(Game.Tile.nullTile);
       }
     }
 
     // randomize map
-    var generator = new ROT.Map.Cellular(Game._width, Game._height);
+    var generator = new ROT.Map.Cellular(mapWidth, mapHeight);
     generator.randomize(0.5);
     var totalIterations = 3;
 
