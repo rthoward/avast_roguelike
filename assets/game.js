@@ -1,24 +1,26 @@
 var WIDTH = 80;
 var HEIGHT = 20;
 
-var centerX = function() {return WIDTH / 2;}
-var centerY = function() {return HEIGHT / 2;}
+var Game = {
+  _display: null,
+  _width: 80,
+  _height: 24,
 
-var drawCenter = function(text) {
-  display.drawText(centerX() - (text.length / 2), centerY(), text);
+  _currentScreen: null,
+
+  init: function() {
+    this._display = new ROT.Display({width: this._width, height: this._height});
+  },
+
+  getDisplay: function() {
+    return this._display;
+  }
 }
-
 
 // make sure rot.js is supported
 if (!ROT.isSupported()) {
   alert("sorry, you need a better browser");
+} else {
+  Game.init();
+  document.body.appendChild(Game.getDisplay().getContainer());  
 }
-
-// create game window
-var display = new ROT.Display({width: WIDTH, height: HEIGHT});
-var container = display.getContainer();
-
-// add container to the page
-document.body.appendChild(container);
-
-drawCenter("Welcome!");
