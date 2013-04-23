@@ -36,7 +36,7 @@ var Game = {
     }
 
     // clear display
-    this.getDisplay.clear();
+    this.getDisplay().clear();
 
     // update screen, notify it, and render
     this._currentScreen = newScreen;
@@ -45,12 +45,4 @@ var Game = {
       this._currentScreen.render(this.getDisplay());
     }
   }
-}
-
-// make sure rot.js is supported
-if (!ROT.isSupported()) {
-  alert("sorry, you need a better browser");
-} else {
-  Game.init();
-  document.body.appendChild(Game.getDisplay().getContainer());  
 }
