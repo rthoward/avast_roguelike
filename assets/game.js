@@ -12,12 +12,11 @@ var Game = {
                                      fontSize: 20});
 
     var game = this;
+
     var bindEventToScreen = function(event) {
       window.addEventListener(event, function(e) {
         if (game._currentScreen !== null) {
-          game._currentScreen.handleInput(event, e);
-          game._display.clear();
-          game._currentScreen.render(game._display);
+          game._currentScreen.handleInput(event, e);          
         }
       });
     }
@@ -30,8 +29,7 @@ var Game = {
   getScreenWidth: function()  { return this._width; },
   getScreenHeight: function() { return this._height; },
 
-  switchScreen: function(newScreen) {
-    
+  switchScreen: function(newScreen) {    
     // notify old screen of exit
     if (this._currentScreen !== null) {
       this._currentScreen.exit();
@@ -44,7 +42,12 @@ var Game = {
     this._currentScreen = newScreen;
     if (!this._currentScreen !== null) {
       this._currentScreen.enter();
-      this._currentScreen.render(this.getDisplay());
+      this.refresh();
     }
+  },
+
+  refresh: function() {
+    this._display.clear();
+    this._currentScreen.render(this._display);
   }
 }
