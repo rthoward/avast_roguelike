@@ -1,6 +1,6 @@
 var Game = {
   _display: null,
-  _width: 80,
+  _width: 40,
   _height: 24,
 
   _currentScreen: null,

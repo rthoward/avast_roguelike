@@ -27,35 +27,8 @@ Game.Screen.playScreen = {
 
 
   enter: function() {
-    var map = [];
-    var mapWidth = 500;
-    var mapHeight = 500;
-
-    // create empty map of nullTiles
-    for (var x = 0; x < mapWidth; x++) {
-      map.push([]);
-      for (var y = 0; y < mapHeight; y++) {
-        map[x].push(Game.Tile.nullTile);
-      }
-    }
-
-    // randomize map
-    var generator = new ROT.Map.Cellular(mapWidth, mapHeight);
-    generator.randomize(0.5);
-    var totalIterations = 3;
-
-    // smooth map
-    for (var i = 0; i < totalIterations - 1; i++) {
-      generator.create();
-    }
-
-    generator.create(function(x, y, v) {
-      if (v === 1) {
-        map[x][y] = Game.Tile.floorTile;
-      } else {
-        map[x][y] = Game.Tile.wallTile;
-      }
-    });
+    
+    var map = Game.MapHelper.genCaveMap(500, 500);
 
 
     this._player = new Game.Entity(Game.PlayerTemplate);
