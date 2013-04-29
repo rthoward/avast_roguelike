@@ -78,7 +78,9 @@ Game.Screen.playScreen = {
       }
     }
     
-    Game.HUD.printStatus(this._player);
+    Game.HUD.renderMessage();
+    Game.HUD.clearMessage();
+    Game.HUD.printStatus(this._player);    
   },
 
   handleInput: function(inputType, inputData) {

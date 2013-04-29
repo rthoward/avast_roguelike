@@ -80,10 +80,11 @@ Game.Mixins.SimpleAttacker = {
   attack: function(target) {
     // try to attack target for 1 damage
     if (target.hasMixin('Destructible')) {
-      console.log(target.getName() + " attacked");
+      var message = this.getName() + " attacks the " + target.getName();
+      Game.HUD.setMessage(message);  
       target.takeDamage(this, 1);
     } else {
-      console.log(target.getName() + " is not destructible");
+      
     }
   }
 }

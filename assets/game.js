@@ -13,6 +13,8 @@ var Game = {
 
     var game = this;
 
+    Game.HUD.init();
+
     var bindEventToScreen = function(event) {
       window.addEventListener(event, function(e) {
         if (game._currentScreen !== null) {
