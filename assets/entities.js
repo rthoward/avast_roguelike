@@ -54,7 +54,7 @@ Game.Mixins.Destructible = {
   name: 'Destructible',
 
   init: function() {
-    this._hp = 1;
+    this._hp = this._maxHP = 1;
   },
 
   takeDamage: function(attacker, damage) {
@@ -62,6 +62,14 @@ Game.Mixins.Destructible = {
     if (this._hp <= 0) {
       this.getMap().removeEntity(this);
     }
+  },
+
+  getHPMax: function() {
+    return this._maxHP;
+  },
+
+  getHP: function() {
+    return this._hp;
   }
 }
 
@@ -83,6 +91,7 @@ Game.Mixins.SimpleAttacker = {
 // templates -----------------------------------------------
 
 Game.PlayerTemplate = {
+  name: 'Bobcat',
   character: '@',
   foreground: 'white',
   background: 'black',
