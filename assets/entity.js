@@ -40,7 +40,7 @@ Game.Entity.prototype.hasMixin = function(obj) {
   if (typeof obj === 'object') {
     return this._attachedMixins[obj.name];
   } else {
-    return this._attachedMixins[name] || this._attachedMixinGroups[obj];
+    return this._attachedMixins[obj] || this._attachedMixinGroups[obj];
   }
 }
 
