@@ -35,11 +35,29 @@ Game.Map.prototype.addEntity = function(entity) {
   }
 }
 
+Game.Map.prototype.removeEntity = function(entity) {
+  for (var i = 0; i < this._entities.length; i++) {
+    if (this._entities[i] == entity) {
+      this._entities.splic(i, 1);
+      break;
+    }
+  }
+
+  // if actor, remove entity from scheduler
+  if (entity.hasMixin('Actor')) {
+    this._scheduler.remove(entity);
+  }
+}
+
 Game.Map.prototype.addEntityAtRandomPosition = function(entity) {
   var position = this.getRandomFloorPosition();
   entity.setX(position.x);
   entity.setY(position.y);
   this.addEntity(entity);
+}
+
+Game.Map.prototype.isEmptyFloor = function(x, y) {
+  return (this.getTile(x, y) == Game.Tile.floorTile && !this.getEntityAt(x, y));
 }
 
 Game.Map.prototype.getWidth = function() {
@@ -87,7 +105,7 @@ Game.Map.prototype.getRandomFloorPosition = function() {
   do {
     x = Math.floor(Math.random() * this._width);
     y = Math.floor(Math.random() * this._width);
-  } while (this.getTile(x, y) != Game.Tile.floorTile || this.getEntityAt(x, y) );
+  } while (!this.isEmptyFloor(x, y));
 
   return {x: x, y: y};
 }
