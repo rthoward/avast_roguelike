@@ -78,6 +78,7 @@ Game.Screen.playScreen = {
       }
     }
     
+    Game.HUD.printStatus(this._player);
   },
 
   handleInput: function(inputType, inputData) {
