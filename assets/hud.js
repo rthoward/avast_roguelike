@@ -17,8 +17,6 @@ Game.HUD.printStatus = function(player) {
 Game.HUD.clearMessage = function() {
   this._turnCounter -= 1;
 
-  console.log("turn counter at " + this._turnCounter);
-
   // every ten turns, push lastMessage to history and clear it out
   if (this._turnCounter <= 0) {
     this._messageHistory.push(this._lastMessage);
