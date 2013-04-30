@@ -51,24 +51,17 @@ Game.Mixins.FungusActor = {
 
 Game.Mixins.Destructible = {
   name: 'Destructible',
-
-  init: function() {
-    this._hp = this._maxHP = 1;
-  },
-
+  
   takeDamage: function(attacker, damage) {
-    this._hp -= damage;
-    if (this._hp <= 0) {
-      this.getMap().removeEntity(this);
-    }
-  },
+    this.modHP(-1);
+    if (this.getHP() <= 0) {
+      this.die(attacker);
+      Game.HUD.setMessage("The " + this.getName() + " is killed!");
+    }      
+  },  
 
-  getHPMax: function() {
-    return this._maxHP;
-  },
-
-  getHP: function() {
-    return this._hp;
+  die: function(attacker) {
+    this.getMap().removeEntity(this);
   }
 }
 
@@ -104,5 +97,6 @@ Game.FungusTemplate = {
   name: 'Fungus',
   character: 'F',
   foreground: 'green',
-  mixins: [Game.Mixins.FungusActor, Game.Mixins.Destructible]
+  mixins: [Game.Mixins.FungusActor, Game.Mixins.Destructible],
+  hp: 1
 }

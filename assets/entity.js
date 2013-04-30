@@ -7,6 +7,11 @@ Game.Entity = function(properties) {
   this._y = properties['y'] || 0;
   this._map = null;
 
+  this._hpMax = this._hp = properties['hp'] || 10;
+  this._atkMax = properties['atkMax'] || 5;
+  this._atkMin = properties['atkMin'] || 1;
+  this._ac = properties['ac'] || 5;
+
   this._attachedMixins = {};
   this._attachedMixinGroups = {};
 
@@ -66,6 +71,26 @@ Game.Entity.prototype.getY   = function() {
 Game.Entity.prototype.setMap = function(map) {
   this._map = map;
 }
+
 Game.Entity.prototype.getMap = function() {
   return this._map;
+}
+
+Game.Entity.prototype.getHP = function() {
+  return this._hp;
+}
+
+Game.Entity.prototype.getHPMax = function() {
+  return this._hpMax;
+}
+
+Game.Entity.prototype.modHP = function(amt) {
+  this._hp += amt;
+  if (this._hp > this._hpMax) {
+    this._hp = this._hpMax;
+  } 
+}
+
+Game.Entity.prototype.die = function(killer) {
+  
 }
