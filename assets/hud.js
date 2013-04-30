@@ -4,6 +4,7 @@ Game.HUD.init = function() {
   this._lastMessage = "";
   this._messageHistory = [];
   this._turnCounter = 10;
+  this._clearString = "                                                        ";
 }
 
 Game.HUD.printStatus = function(player) {
@@ -16,8 +17,12 @@ Game.HUD.printStatus = function(player) {
 Game.HUD.clearMessage = function() {
   this._turnCounter -= 1;
 
+  console.log("turn counter at " + this._turnCounter);
+
+  // every ten turns, push lastMessage to history and clear it out
   if (this._turnCounter <= 0) {
-    Game.getDisplay().drawText(0, 0, "");
+    this._messageHistory.push(this._lastMessage);
+    this._lastMessage = "";    
     this._turnCounter = 10;
   }
 }
@@ -30,9 +35,12 @@ Game.HUD.setMessage = function(message) {
     this._messageHistory.push(this._lastMessage)
     this._lastMessage = message;        
   }
+
+  this._turnCounter = 10;
+  this._lastMessage += ".";
 }
 
-Game.HUD.renderMessage = function(message) {
+Game.HUD.renderMessage = function(message) {  
   Game.getDisplay().drawText(0, 0, this._lastMessage); 
 }
 
