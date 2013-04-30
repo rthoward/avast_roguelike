@@ -11,8 +11,7 @@ Game.Mixins.Moveable = {
 
     // entity is present at tile. try to attack it
     if (target) {
-      if (this.hasMixin('Attacker')) {
-        console.log("attacking " + target.getName());
+      if (this.hasMixin('Attacker')) {        
         this.attack(target);
         return true;
       } else {
