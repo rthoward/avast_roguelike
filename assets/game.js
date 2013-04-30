@@ -1,7 +1,7 @@
 var Game = {
   _display: null,
-  _width: 40,
-  _height: 24,
+  _width: 64,
+  _height: 32,
 
   _currentScreen: null,
 
@@ -9,7 +9,7 @@ var Game = {
     this._display = new ROT.Display({width: this._width, 
                                      height: this._height,
                                      fontFamily: "consolas",
-                                     fontSize: 20});
+                                     fontSize: 18});
 
     var game = this;
 
