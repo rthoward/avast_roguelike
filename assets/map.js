@@ -92,6 +92,19 @@ Game.Map.prototype.getEntityAt = function(x, y) {
   return false;
 }
 
+Game.Map.prototype.getItemsAt = function(x, y) {
+  var ret = [];
+
+  for (var i = 0; i < this._entities.length; i++) {
+    if (this._entities[i].getX() == x && this._entities[i].getY() == y 
+        && this._entities[i] !== Game.Dungeon.getPlayer()) {
+      ret.push(this._entities[i]);
+    }
+  }
+
+  return ret;
+}
+
 // digs through the entity at the given coordinate, but does not move there
 Game.Map.prototype.dig = function(x, y) {
   if (this.getTile(x, y).isDiggable()) {
