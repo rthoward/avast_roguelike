@@ -61,7 +61,23 @@ Game.Mixins.PlayerInventory = {
   },
 
   touchItem: function(item) {
-    Game.HUD.setMessage("You see here a " + item.getName());
+    Game.HUD.queueMessage("You see here a " + item.getName());
+  },
+
+  pickUp: function() {
+    var items = this.getMap().getItemsAt(this.getX(), this.getY());
+
+    // just focus on one item for now
+    var item = items.pop();
+
+    if (item) {
+      this.getInventory().addItem(item);
+      this.getMap().removeEntity(item);
+      Game.HUD.queueMessage(item.getLetter() + " - " + item.getName());
+    } else {
+      Game.HUD.queueMessage("There is nothing here to pick up");  
+    }
+    
   }
 }
 

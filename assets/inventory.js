@@ -6,17 +6,16 @@ Game.Inventory = function(owner) {
 
 Game.Inventory.prototype.addItem = function(item) {
 
-  if (this.nextLetter(this._currentLetter)) {    
+  if (this.nextLetter()) {    
     item.setLetter(this._currentLetter);
     this._items.push(item);
-    console.log("pushing item " + item.getName() + " as " + item.getLetter());
     return true;
   } else {
     return false;
   }
 }
 
-Game.Inventory.prototype.nextLetter = function(letter) {
+Game.Inventory.prototype.nextLetter = function() {
   
   if (this._items.length >= 52) {
     return false;
@@ -44,7 +43,7 @@ Game.Inventory.prototype.isLetterTaken = function(letter) {
   
 
   for (var i = 0; i < this._items.length; i++) {
-    if (this._items[i].getLetter() === 'letter') {
+    if (this._items[i].getLetter() === letter) {
       return true;
     }
   }
