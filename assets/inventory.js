@@ -60,3 +60,20 @@ Game.Inventory.prototype.show = function() {
     Game.getDisplay().drawText(10, i + 1, str);
   }
 }
+
+Game.Inventory.prototype.use = function(item, target) {
+  item.use(this._owner, target);
+  // possibly remove item from inventory
+}
+
+Game.Inventory.prototype.getAllType = function(type) {
+  var ret = [];
+
+  for (var i = 0; i < this._items.length; i++) {
+    if (this._items[i].getItemType() == type) {
+      ret.push(this._items[i]);
+    }
+  }
+
+  return ret;
+}

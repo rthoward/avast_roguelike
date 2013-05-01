@@ -30,3 +30,7 @@ Game.Item.prototype.getLetter = function() {
 Game.Item.prototype.modQuantity = function(amt) {
   this._quantity += amt;
 }
+
+Game.Item.prototype.getItemType = function() {
+  return this._itemType;
+}
