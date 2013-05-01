@@ -3,8 +3,21 @@ Game.HUD = {};
 Game.HUD.init = function() {
   this._lastMessage = "";
   this._messageHistory = [];
+  this._messageQueue = [];
   this._turnCounter = 10;
   this._clearString = "                                                        ";
+}
+
+Game.HUD.queueMessage = function(msg) {
+  this._messageQueue.push(msg);
+}
+
+Game.HUD.popMessage = function() {
+  return this._messageQueue.shift();
+}
+
+Game.HUD.numMessages = function() {
+  return this._messageQueue.length;
 }
 
 Game.HUD.printStatus = function(player) {
@@ -14,32 +27,23 @@ Game.HUD.printStatus = function(player) {
   Game.getDisplay().drawText(0,Game.getScreenHeight() - 1, string);
 }
 
-Game.HUD.clearMessage = function() {
-  this._turnCounter -= 1;
-
-  // every ten turns, push lastMessage to history and clear it out
-  if (this._turnCounter <= 0) {
-    this._messageHistory.push(this._lastMessage);
-    this._lastMessage = "";    
-    this._turnCounter = 10;
+Game.HUD.tickMessages = function() {
+  if (this.numMessages() > 0) {
+    this.renderMessage();
   }
-}
-
-Game.HUD.setMessage = function(message) {
-   if ( (this._lastMessage.length + message.length) <= Game.getScreenWidth() ) {
-    this._messageHistory.push(this._lastMessage);
-    this._lastMessage += message;    
-  } else {
-    this._messageHistory.push(this._lastMessage)
-    this._lastMessage = message;        
-  }
-
-  this._turnCounter = 10;
-  this._lastMessage += ".";
 }
 
 Game.HUD.renderMessage = function(message) {  
-  Game.getDisplay().drawText(0, 0, this._lastMessage); 
+  
+  while (this.numMessages() > 0) {
+    var message = this.popMessage() + ".";
+    if (this.numMessages() > 0) {
+      message += " MORE--";
+    }    
+    Game.getDisplay().drawText(0, 0, message);
+  }
+
+  
 }
 
 Game.HUD.showMessageHistory = function() {

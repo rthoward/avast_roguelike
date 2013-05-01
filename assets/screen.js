@@ -34,8 +34,7 @@ Game.Screen.playScreen = {
   enter: function() {    
     var potion = new Game.Item(Game.Items.PotionHealNormal);
 
-    Game.Dungeon.getMap().getEngine().start();
-    Game.Dungeon.getPlayer().getInventory().addItem(potion);
+    Game.Dungeon.getMap().getEngine().start();    
     Game.Dungeon.getMap().addEntityAtRandomPosition(potion);  
   },
 
@@ -91,13 +90,15 @@ Game.Screen.playScreen = {
           player.getBackground()
         );
     
-    Game.HUD.renderMessage();
-    Game.HUD.clearMessage();
+    Game.HUD.renderMessage();    
     Game.HUD.printStatus(player);    
   },
 
   handleInput: function(inputType, inputData) {
     if (inputType === 'keydown') {
+
+      Game.HUD.tickMessages();
+
       if (inputData.keyCode === ROT.VK_RETURN) {
         Game.switchScreen(Game.Screen.winScreen);
       } else if (inputData.keyCode === ROT.VK_ESCAPE) {
@@ -114,6 +115,8 @@ Game.Screen.playScreen = {
         this.move(0, 1);
       } else if (inputData.keyCode === ROT.VK_I) {
         Game.switchScreen(Game.Screen.inventoryScreen);
+      } else if (inputData.keyCode === ROT.VK_COMMA) {
+        Game.Dungeon.getPlayer().pickUp();
       }
 
       Game.Dungeon.getMap().getEngine().unlock();
