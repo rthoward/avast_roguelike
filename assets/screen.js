@@ -31,11 +31,15 @@ Game.Screen.startScreen = {
 // Define our playing screen
 Game.Screen.playScreen = {  
 
+  _selectingItem = false,
+
   enter: function() {    
     var potion = new Game.Item(Game.Items.PotionHealNormal);
+    var potionBad = new Game.Item(Game.Items.PotionAcidNormal);
 
     Game.Dungeon.getMap().getEngine().start();    
     Game.Dungeon.getMap().addEntityAtRandomPosition(potion);  
+    Game.Dungeon.getMap().addEntityAtRandomPosition(potionBad);
   },
 
   exit: function() {},
@@ -117,6 +121,8 @@ Game.Screen.playScreen = {
         Game.switchScreen(Game.Screen.inventoryScreen);
       } else if (inputData.keyCode === ROT.VK_COMMA) {
         Game.Dungeon.getPlayer().pickUp();
+      } else if (inputData.keyCode === ROT.VK_Q) {
+        Game.Dungeon.getPlayer().tryQuaff();
       }
 
       Game.Dungeon.getMap().getEngine().unlock();

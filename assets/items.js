@@ -15,3 +15,17 @@ Game.Items.PotionHealNormal = {
     target.modHP(10);
   }
 }
+
+Game.Items.PotionAcidNormal = {
+  name: 'Potion of Acid',
+  type: 'potion',
+  character: '!',
+  foreground: 'red',
+  background: 'black',
+
+  use: function(user, target) {
+    Game.HUD.setMessage(user.getName() + " drinks a " +
+                        this.getName() + ". It burns!");
+    target.modHP(-5);
+  }
+}
