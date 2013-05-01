@@ -76,8 +76,26 @@ Game.Mixins.PlayerInventory = {
       Game.HUD.queueMessage(item.getLetter() + " - " + item.getName());
     } else {
       Game.HUD.queueMessage("There is nothing here to pick up");  
-    }
+    }    
+  }
+}
+
+Game.Mixins.PlayerQuaff = {
+  name: 'PlayerQuaff',
+  groupName: 'Quaff',
+
+  tryQuaff: function() {
+    var quaffables = this.getInventory().getAllType('potion');
     
+    if (quaffables.length == 0) {
+      Game.HUD.queueMessage("You have no quaffable items");
+    } else {
+      Game.HUD.itemList("quaff", quaffables);  
+    }
+  },
+
+  quaff: function(item) {
+
   }
 }
 
@@ -129,7 +147,7 @@ Game.PlayerTemplate = {
   background: 'black',
   mixins: [Game.Mixins.Moveable, Game.Mixins.PlayerActor, 
            Game.Mixins.SimpleAttacker, Game.Mixins.Destructible,
-           Game.Mixins.PlayerInventory]
+           Game.Mixins.PlayerInventory, Game.Mixins.PlayerQuaff]
 }
 
 Game.FungusTemplate = {
