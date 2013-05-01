@@ -3,7 +3,7 @@ Game.Screen = {};
 // Define our initial start screen
 Game.Screen.startScreen = {
 	enter: function() {    
-    var player = new Game.Entity(Game.PlayerTemplate);    
+    var player = new Game.Actor(Game.PlayerTemplate);    
     Game.Dungeon.init(player);
     var map = Game.MapHelper.genCaveMap(25, 25);
     Game.Dungeon.addMap(map);
@@ -82,6 +82,14 @@ Game.Screen.playScreen = {
         );
       }
     }
+
+    display.draw(
+          player.getX() - topLeftX, 
+          player.getY() - topLeftY,    
+          player.getChar(), 
+          player.getForeground(), 
+          player.getBackground()
+        );
     
     Game.HUD.renderMessage();
     Game.HUD.clearMessage();

@@ -9,26 +9,31 @@ Game.Mixins.Moveable = {
     // potential entity at desired location
     var target = map.getEntityAt(x, y);
 
-    // entity is present at tile. try to attack it
     if (target) {
-      if (this.hasMixin('Attacker')) {        
+
+      if (target.isActor() && this.hasMixin('Attacker')) {
         this.attack(target);
         return true;
+      }
+      else if (target.isItem()) {
+        this.setX(x);
+        this.setY(y);
+        if (this.hasMixin('PlayerInventory')) {
+          this.touchItem(target);
+        }
+        return true;        
       } else {
         return false;
       }      
-      // if tile can be walked on, simply walk to it
     } else if (tile.isWalkable()) {
-      this._x = x;
-      this._y = y;
+      this.setX(x);
+      this.setY(y);
       return true;
-      // if tile is diggable, dig through it
-    } else if (tile.isDiggable()) {      
+    } else if (tile.isDiggable()) {
       map.dig(x, y);
       return true;
     }
-
-    // tile cannot be walked to or dug through
+      
     return false;
   }
 }
@@ -53,6 +58,10 @@ Game.Mixins.PlayerInventory = {
 
   getInventory: function() {
     return this._inventory;
+  },
+
+  touchItem: function(item) {
+    Game.HUD.setMessage("You see here a " + item.getName());
   }
 }
 

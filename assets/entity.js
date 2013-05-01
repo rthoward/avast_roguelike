@@ -3,14 +3,12 @@ Game.Entity = function(properties) {
   Game.Glyph.call(this, properties);
   
   this._name = properties['name'] || '';
+  this._type = 'baseEntity';
   this._x = properties['x'] || 0;
   this._y = properties['y'] || 0;
-  this._map = null;
+  this._map = null;  
 
-  this._hpMax = this._hp = properties['hp'] || 10;
-  this._atkMax = properties['atkMax'] || 5;
-  this._atkMin = properties['atkMin'] || 1;
-  this._ac = properties['ac'] || 5;
+  // mixins ---------------------------------
 
   this._attachedMixins = {};
   this._attachedMixinGroups = {};
@@ -49,8 +47,23 @@ Game.Entity.prototype.hasMixin = function(obj) {
   }
 }
 
+Game.Entity.prototype.isItem = function() {
+  return this._type == 'item';
+}
+
+Game.Entity.prototype.isActor = function() {
+  return this._type == 'actor';
+}
+
+Game.Entity.prototype.getType = function() {
+  return this._type;
+}
+
 Game.Entity.prototype.setName = function(name) {
   this._name = name;
+}
+Game.Entity.prototype.getName = function() {
+  return this._name;
 }
 Game.Entity.prototype.setX = function(x) {
   this._x = x;
@@ -58,9 +71,7 @@ Game.Entity.prototype.setX = function(x) {
 Game.Entity.prototype.setY = function(y) {
   this._y = y;
 }
-Game.Entity.prototype.getName = function() {
-  return this._name;
-}
+
 Game.Entity.prototype.getX = function() {
   return this._x;
 }
@@ -74,23 +85,4 @@ Game.Entity.prototype.setMap = function(map) {
 
 Game.Entity.prototype.getMap = function() {
   return this._map;
-}
-
-Game.Entity.prototype.getHP = function() {
-  return this._hp;
-}
-
-Game.Entity.prototype.getHPMax = function() {
-  return this._hpMax;
-}
-
-Game.Entity.prototype.modHP = function(amt) {
-  this._hp += amt;
-  if (this._hp > this._hpMax) {
-    this._hp = this._hpMax;
-  } 
-}
-
-Game.Entity.prototype.die = function(killer) {
-  
 }
