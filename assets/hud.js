@@ -36,14 +36,28 @@ Game.HUD.tickMessages = function() {
 Game.HUD.renderMessage = function(message) {  
   
   while (this.numMessages() > 0) {
-    var message = this.popMessage() + ".";
+    var message = this.popMessage();
     if (this.numMessages() > 0) {
       message += " MORE--";
     }    
     Game.getDisplay().drawText(0, 0, message);
+  }  
+}
+
+Game.HUD.itemList = function(action, items) {
+  var message = "Which item do you want to " + action;
+  message += "? (";
+
+  for (var i = 0; i < items.length; i++) {
+    if (i == items.length - 1) {
+      message += items[i].getLetter();
+    } else {
+      message += items[i].getLetter() + ",";
+    }
   }
 
-  
+  message += ")";
+  this.queueMessage(message);
 }
 
 Game.HUD.showMessageHistory = function() {
