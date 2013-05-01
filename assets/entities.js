@@ -43,6 +43,19 @@ Game.Mixins.PlayerActor = {
   }
 }
 
+Game.Mixins.PlayerInventory = {
+  name: 'PlayerInventory',
+  groupName: 'Inventory',
+
+  init: function() {
+    this._inventory = new Game.Inventory(this);
+  },
+
+  getInventory: function() {
+    return this._inventory;
+  }
+}
+
 Game.Mixins.FungusActor = {
   name: 'FungusActor',
   groupName: 'Actor',
@@ -90,7 +103,8 @@ Game.PlayerTemplate = {
   foreground: 'white',
   background: 'black',
   mixins: [Game.Mixins.Moveable, Game.Mixins.PlayerActor, 
-           Game.Mixins.SimpleAttacker, Game.Mixins.Destructible]
+           Game.Mixins.SimpleAttacker, Game.Mixins.Destructible,
+           Game.Mixins.PlayerInventory]
 }
 
 Game.FungusTemplate = {
