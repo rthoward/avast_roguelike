@@ -21,7 +21,9 @@ Game.MapHelper.genNormalMap = function(sizeX, sizeY) {
     }
   }); 
 
-	return map;
+  var finalMap = new Game.Map(map, Game.Dungeon.getPlayer());
+
+  return finalMap;
 }
 
 // create cave map
@@ -54,5 +56,7 @@ Game.MapHelper.genCaveMap = function(sizeX, sizeY) {
       }
     });
 
-    return map;
+    var finalMap = new Game.Map(map, Game.Dungeon.getPlayer());
+
+    return finalMap;
 }

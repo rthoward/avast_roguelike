@@ -2,11 +2,19 @@ Game.Screen = {};
 
 // Define our initial start screen
 Game.Screen.startScreen = {
-	enter: function() {    console.log("Entered start screen."); },
-	exit: function() { console.log("Exited start screen."); },
+	enter: function() {    
+    var player = new Game.Entity(Game.PlayerTemplate);    
+    Game.Dungeon.init(player);
+    var map = Game.MapHelper.genCaveMap(25, 25);
+    Game.Dungeon.addMap(map);
+  },
+
+	exit: function() {
+
+  },
 	render: function(display) {
 		// Render our prompt to the screen
-		display.drawText(1,1, "%c{yellow}Javascript Roguelike");
+		display.drawText(1,1, "%c{yellow}Avast!");
 		display.drawText(1,2, "Press [Enter] to start!");
   },
 
@@ -21,37 +29,34 @@ Game.Screen.startScreen = {
 }
 
 // Define our playing screen
-Game.Screen.playScreen = {
-  _map: null, 
-  _player: null,
+Game.Screen.playScreen = {  
 
+  enter: function() {    
+    var potion = new Game.Item(Game.Items.PotionHealNormal);
 
-  enter: function() {
-    
-    var map = Game.MapHelper.genCaveMap(500, 500);
-
-
-    this._player = new Game.Entity(Game.PlayerTemplate);
-    this._map = new Game.Map(map, this._player);
-    this._map.getEngine().start();    
-    
+    Game.Dungeon.getMap().getEngine().start();
+    Game.Dungeon.getPlayer().getInventory().addItem(potion);
+    Game.Dungeon.getMap().addEntityAtRandomPosition(potion);  
   },
 
-  exit: function() { console.log("Exited play screen."); },
+  exit: function() {},
   
   render: function(display) { 
+    var player = Game.Dungeon.getPlayer();
+    var map = Game.Dungeon.getMap();
+
     var screenWidth = Game.getScreenWidth();
     var screenHeight = Game.getScreenHeight();
     
-    var topLeftX = Math.max(0, this._player.getX() - (screenWidth / 2));   
-    topLeftX = Math.min(topLeftX, this._map.getWidth() - screenWidth);    
-    var topLeftY = Math.max(0, this._player.getY() - (screenHeight / 2));   
-    topLeftY = Math.min(topLeftY, this._map.getHeight() - screenHeight);
+    var topLeftX = Math.max(0, player.getX() - (screenWidth / 2));   
+    topLeftX = Math.min(topLeftX, map.getWidth() - screenWidth);    
+    var topLeftY = Math.max(0, player.getY() - (screenHeight / 2));   
+    topLeftY = Math.min(topLeftY, map.getHeight() - screenHeight);
    
     for (var x = topLeftX; x < topLeftX + screenWidth; x++) {
       for (var y = topLeftY; y < topLeftY + screenHeight; y++) {
         // grab glyph for tile and render it at proper position
-        var tile = this._map.getTile(x, y);
+        var tile = map.getTile(x, y);
         display.draw(
         x - topLeftX,
         y - topLeftY,
@@ -61,7 +66,7 @@ Game.Screen.playScreen = {
       }
     }
     
-    var entities = this._map.getEntities();
+    var entities = map.getEntities();
     for (var i = 0; i < entities.length; i++) {
       var entity = entities[i];
       // Only render the entitiy if they would show up on the screen
@@ -80,7 +85,7 @@ Game.Screen.playScreen = {
     
     Game.HUD.renderMessage();
     Game.HUD.clearMessage();
-    Game.HUD.printStatus(this._player);    
+    Game.HUD.printStatus(player);    
   },
 
   handleInput: function(inputType, inputData) {
@@ -99,16 +104,40 @@ Game.Screen.playScreen = {
         this.move(0, -1);
       } else if (inputData.keyCode === ROT.VK_DOWN) {
         this.move(0, 1);
+      } else if (inputData.keyCode === ROT.VK_I) {
+        Game.switchScreen(Game.Screen.inventoryScreen);
       }
 
-      this._map.getEngine().unlock();
+      Game.Dungeon.getMap().getEngine().unlock();
     }        
   },
 
   move: function (dX, dY) {
-    var newX = this._player.getX() + dX;
-    var newY = this._player.getY() + dY;
-    this._player.tryMove(newX, newY, this._map);
+    var player = Game.Dungeon.getPlayer();
+
+    var newX = player.getX() + dX;
+    var newY = player.getY() + dY;
+    player.tryMove(newX, newY, Game.Dungeon.getMap());
+  }
+}
+
+Game.Screen.inventoryScreen = {
+  _player: null,
+
+  enter: function() {
+    this._player = Game.Dungeon.getPlayer();
+  },
+  exit: function() {
+
+  },
+  render: function(display) {
+    this._player.getInventory().show(); 
+  },
+  
+  handleInput: function(inputType, inputData) {
+    if (inputData.keyCode === ROT.VK_ESCAPE) {
+        Game.switchScreen(Game.Screen.playScreen);
+    }    
   }
 }
 

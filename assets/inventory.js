@@ -6,8 +6,7 @@ Game.Inventory = function(owner) {
 
 Game.Inventory.prototype.addItem = function(item) {
 
-  if (this.nextLetter()) {
-    
+  if (this.nextLetter(this._currentLetter)) {    
     item.setLetter(this._currentLetter);
     this._items.push(item);
     console.log("pushing item " + item.getName() + " as " + item.getLetter());
