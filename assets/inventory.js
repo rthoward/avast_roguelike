@@ -15,6 +15,23 @@ Game.Inventory.prototype.addItem = function(item) {
   }
 }
 
+Game.Inventory.prototype.hasItem = function(item) {
+  for (var i = 0; i < this._items.length; i++) {
+    if (this._items[i] === item) {
+      return true;
+    }
+  }
+  return false;
+}
+
+Game.Inventory.prototype.removeItem = function(item) {
+  for (var i = 0; i < this._items.length; i++) {
+    if (this._items[i] === item) {
+      this._items.splice(i, 1);
+    }
+  }
+}
+
 Game.Inventory.prototype.nextLetter = function() {
   
   if (this._items.length >= 52) {
@@ -63,7 +80,7 @@ Game.Inventory.prototype.show = function() {
 
 Game.Inventory.prototype.use = function(item, target) {
   item.use(this._owner, target);
-  // possibly remove item from inventory
+  this.removeItem(item);
 }
 
 Game.Inventory.prototype.getAllType = function(type) {
@@ -76,4 +93,18 @@ Game.Inventory.prototype.getAllType = function(type) {
   }
 
   return ret;
+}
+
+Game.Inventory.prototype.getAtLetter = function(letter) {
+  for (var i = 0; i < this._items.length; i++) {
+    if (this._items[i].getLetter() == letter) {
+      return this._items[i];
+    }
+  }
+  return null;
+}
+
+// make sure player can use item for given purpose or action
+Game.Inventory.prototype.canUse = function(item, use) {
+  return this.hasItem(item) && item.hasUse(use);
 }
