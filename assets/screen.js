@@ -31,7 +31,8 @@ Game.Screen.startScreen = {
 // Define our playing screen
 Game.Screen.playScreen = {  
 
-  _selectingItem = false,
+  _itemAction: null,
+  _usingItem: null,
 
   enter: function() {    
     var potion = new Game.Item(Game.Items.PotionHealNormal);
@@ -103,6 +104,22 @@ Game.Screen.playScreen = {
 
       Game.HUD.tickMessages();
 
+      if (this._itemAction !== null) {
+        var player = Game.Dungeon.getPlayer();
+        var inventory = player.getInventory();        
+        this._usingItem = String.fromCharCode(inputData.keyCode + 32);        
+        console.log("selecting item at " + this._usingItem);
+        var item = inventory.getAtLetter(this._usingItem);
+        if (inventory.canUse(item, this._itemAction)) {
+          inventory.use(item, player);
+        } else {
+          console.log("can't use item for that action");
+        }
+        
+        this._itemAction = null;
+        this._usingItem = null;
+      }
+
       if (inputData.keyCode === ROT.VK_RETURN) {
         Game.switchScreen(Game.Screen.winScreen);
       } else if (inputData.keyCode === ROT.VK_ESCAPE) {
@@ -123,6 +140,7 @@ Game.Screen.playScreen = {
         Game.Dungeon.getPlayer().pickUp();
       } else if (inputData.keyCode === ROT.VK_Q) {
         Game.Dungeon.getPlayer().tryQuaff();
+        this._itemAction = 'quaff';
       }
 
       Game.Dungeon.getMap().getEngine().unlock();
