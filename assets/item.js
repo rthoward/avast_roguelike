@@ -5,6 +5,7 @@ Game.Item = function(properties) {
   
   this._type = 'item';
   this._itemType = properties['type'] || 'unknown';
+  this._itemUses = properties['uses'] || 'none';
   this._letter = '';  
   this._quantity = 1; 
   this._numUses = properties['numUses'] || 0;
@@ -33,4 +34,12 @@ Game.Item.prototype.modQuantity = function(amt) {
 
 Game.Item.prototype.getItemType = function() {
   return this._itemType;
+}
+
+Game.Item.prototype.hasUse = function(use) {
+  for (var i = 0; i < this._itemUses.length; i++) {
+    if (this._itemUses[i] == use) 
+      return true;
+  }
+  return false;
 }
