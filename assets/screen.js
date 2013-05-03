@@ -5,7 +5,7 @@ Game.Screen.startScreen = {
 	enter: function() {    
     var player = new Game.Actor(Game.PlayerTemplate);    
     Game.Dungeon.init(player);
-    var map = Game.MapHelper.genCaveMap(25, 25);
+    var map = Game.MapHelper.firstCave(50, 50);
     Game.Dungeon.addMap(map);
   },
 
