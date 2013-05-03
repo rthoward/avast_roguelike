@@ -108,8 +108,12 @@ Game.Map.prototype.getItemsAt = function(x, y) {
 // digs through the entity at the given coordinate, but does not move there
 Game.Map.prototype.dig = function(x, y) {
   if (this.getTile(x, y).isDiggable()) {
-    this._tiles[x][y] = Game.Tile.floorTile;
+    this.setTile(x, y, Game.Tile.floorTile);
   }
+}
+
+Game.Map.prototype.setTile = function(x, y, tile) {
+  this._tiles[x][y] = tile;
 }
 
 // returns valid random floor position
