@@ -29,3 +29,17 @@ Game.Tile.wallTile = new Game.Tile({
   foreground: 'goldenrod',
   isDiggable: true
 });
+
+Game.Tile.upStairsTile = new Game.Tile({
+  character: '<',
+  foreground: 'white',
+  isWalkable: true,
+  isDiggable: false
+});
+
+Game.Tile.downStairsTile = new Game.Tile({
+  character: '>',
+  foreground: 'white',
+  isWalkable: true,
+  isDiggable: false
+});
