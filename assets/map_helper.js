@@ -60,3 +60,29 @@ Game.MapHelper.genCaveMap = function(sizeX, sizeY) {
 
     return finalMap;
 }
+
+Game.MapHelper.normalCave = function(sizeX, sizeY) {
+  var map = this.genCaveMap(sizeX, sizeY);
+
+  var upstairsPosition = map.getRandomFloorPosition();
+  map.setTile(upstairsPosition.x, upstairsPosition.y, Game.Tile.upStairsTile);
+  var downstairsPosition = map.getRandomFloorPosition();
+  map.setTile(downstairsPosition.x, downstairsPosition.y, Game.Tile.downStairsTile);
+
+  return map;
+}
+
+
+Game.MapHelper.firstCave = function(sizeX, sizeY) {
+  var map = this.genCaveMap(sizeX, sizeY);
+
+  var upstairsPosition = map.getRandomFloorPosition();
+  map.setTile(upstairsPosition.x, upstairsPosition.y, Game.Tile.upStairsTile);
+  var downstairsPosition = map.getRandomFloorPosition();
+  map.setTile(downstairsPosition.x, downstairsPosition.y, Game.Tile.downStairsTile);
+
+  Game.Dungeon.getPlayer().setX(upstairsPosition.x);
+  Game.Dungeon.getPlayer().setY(upstairsPosition.y);
+
+  return map;
+}
