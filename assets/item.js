@@ -14,8 +14,7 @@ Game.Item = function(properties) {
   this.use = properties['use'] || function(user, target) {
     Game.HUD.setMessage(user.getName() + " uses" + this.getName()
                         + " on " + target.getName());
-  }
-  
+  }  
 }
 
 Game.Item.extend(Game.Entity);

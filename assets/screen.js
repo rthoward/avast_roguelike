@@ -104,6 +104,7 @@ Game.Screen.playScreen = {
 
       Game.HUD.tickMessages();
 
+      // if currently selecting item, grab its letter and attempt to use it
       if (this._itemAction !== null) {
         var player = Game.Dungeon.getPlayer();
         var inventory = player.getInventory();        
@@ -116,6 +117,7 @@ Game.Screen.playScreen = {
           console.log("can't use item for that action");
         }
         
+        // clear out item selection for next attemtp
         this._itemAction = null;
         this._usingItem = null;
       }
@@ -134,7 +136,8 @@ Game.Screen.playScreen = {
         this.move(0, -1);
       } else if (inputData.keyCode === ROT.VK_DOWN) {
         this.move(0, 1);
-      } else if (inputData.keyCode === ROT.VK_I) {
+      // item management
+      } else if (inputData.keyCode === ROT.VK_I) {        
         Game.switchScreen(Game.Screen.inventoryScreen);
       } else if (inputData.keyCode === ROT.VK_COMMA) {
         Game.Dungeon.getPlayer().pickUp();
