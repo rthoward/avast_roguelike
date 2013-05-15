@@ -2,6 +2,7 @@ var Game = {
   _display: null,
   _width: 96,
   _height: 32,
+  _hjkl: true,
 
   _currentScreen: null,
 
@@ -51,5 +52,33 @@ var Game = {
   refresh: function() {
     this._display.clear();
     this._currentScreen.render(this._display);
+  },
+
+  getKeyMap: function(action) {
+    if (action == "up") {
+      if (this._hjkl)       { return ROT.VK_K; }
+      else                  { return ROT.VK_UP; }
+    } else if (action == "down") {
+      if (this._hjkl)       { return ROT.VK_J; }
+      else                  { return ROT.VK_DOWN; }
+    } else if (action == "left") {
+      if (this._hjkl)       { return ROT.VK_H; }
+      else                  { return ROT.VK_LEFT; }
+    } else if (action == "right") {
+      if (this._hjkl)       { return ROT.VK_L; }
+      else                  { return ROT.VK_RIGHT; }
+    } else if (action == "up_left") {
+      if (this._hjkl)       { return ROT.VK_Y; }
+      else                  { return 0; }
+    } else if (action == "up_right") {
+      if (this._hjkl)       { return ROT.VK_U; }
+      else                  { return 0; }
+    } else if (action == "down_left") {
+      if (this._hjkl)       { return ROT.VK_B; }
+      else                  { return 0; }
+    } else if (action == "down_right") {
+      if (this._hjkl)       { return ROT.VK_N; }
+      else                  { return 0; }
+    }
   }
 }

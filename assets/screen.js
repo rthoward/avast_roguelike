@@ -129,15 +129,22 @@ Game.Screen.playScreen = {
       }   
 
       // movement
-      if (inputData.keyCode === ROT.VK_LEFT) {
+      if (inputData.keyCode === Game.getKeyMap("left")) {
         this.move(-1, 0);
-      } else if (inputData.keyCode === ROT.VK_RIGHT) {
+      } else if (inputData.keyCode === Game.getKeyMap("right")) {
         this.move(1, 0);
-      } else if (inputData.keyCode === ROT.VK_UP) {
+      } else if (inputData.keyCode === Game.getKeyMap("up")) {
         this.move(0, -1);
-      } else if (inputData.keyCode === ROT.VK_DOWN) {
+      } else if (inputData.keyCode === Game.getKeyMap("down")) {
         this.move(0, 1);
-      // item management
+      } else if (inputData.keyCode === Game.getKeyMap("up_left")) {
+        this.move(-1, -1);
+      } else if (inputData.keyCode === Game.getKeyMap("up_right")) {
+        this.move(1, -1);
+      } else if (inputData.keyCode === Game.getKeyMap("down_left")) {
+        this.move(-1, 1);
+      } else if (inputData.keyCode === Game.getKeyMap("down_right")) {
+        this.move(1, 1);
       } else if (inputData.keyCode === ROT.VK_I) {        
         Game.switchScreen(Game.Screen.inventoryScreen);
       } else if (inputData.keyCode === ROT.VK_COMMA) {
