@@ -45,7 +45,7 @@ Game.HUD.renderMessage = function(message) {
 }
 
 Game.HUD.itemList = function(action, items) {
-  var message = "Which item do you want to " + action;
+  var message = "What do you want to " + action;
   message += "? (";
 
   for (var i = 0; i < items.length; i++) {
