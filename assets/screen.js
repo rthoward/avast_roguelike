@@ -106,27 +106,28 @@ Game.Screen.playScreen = {
 
       // if currently selecting item, grab its letter and attempt to use it
       if (this._itemAction !== null) {
-        var player = Game.Dungeon.getPlayer();
-        var inventory = player.getInventory();        
-        this._usingItem = String.fromCharCode(inputData.keyCode + 32);        
-        console.log("selecting item at " + this._usingItem);
-        var item = inventory.getAtLetter(this._usingItem);
-        if (inventory.canUse(item, this._itemAction)) {
-          inventory.use(item, player);
-        } else {
-          console.log("can't use item for that action");
-        }
-        
-        // clear out item selection for next attemtp
-        this._itemAction = null;
-        this._usingItem = null;
-      }
 
-      if (inputData.keyCode === ROT.VK_RETURN) {
-        Game.switchScreen(Game.Screen.winScreen);
-      } else if (inputData.keyCode === ROT.VK_ESCAPE) {
-        Game.switchScreen(Game.Screen.loseScreen);
-      }
+        // escape cancels item use
+        if (inputData.keyCode == ROT.VK_ESCAPE) {
+          Game.HUD.queueMessage("Never mind.");
+        } else {
+          var player = Game.Dungeon.getPlayer();
+          var inventory = player.getInventory();        
+          this._usingItem = String.fromCharCode(inputData.keyCode + 32);        
+          console.log("selecting item at " + this._usingItem);
+          var item = inventory.getAtLetter(this._usingItem);
+          if (inventory.canUse(item, this._itemAction)) {
+            inventory.use(item, player);
+          } else {
+            console.log("can't use item for that action");
+          }
+        }
+          
+          // clear out item selection for next attemtp
+          this._itemAction = null;
+          this._usingItem = null;        
+      }   
+
       // movement
       if (inputData.keyCode === ROT.VK_LEFT) {
         this.move(-1, 0);

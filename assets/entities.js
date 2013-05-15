@@ -88,7 +88,7 @@ Game.Mixins.PlayerQuaff = {
     var quaffables = this.getInventory().getAllType('potion');
     
     if (quaffables.length == 0) {
-      Game.HUD.queueMessage("You have no quaffable items");
+      Game.HUD.queueMessage("You have nothing to drink.");
     } else {
       Game.HUD.itemList("quaff", quaffables);  
     }
