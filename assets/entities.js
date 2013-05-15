@@ -89,8 +89,10 @@ Game.Mixins.PlayerQuaff = {
     
     if (quaffables.length == 0) {
       Game.HUD.queueMessage("You have nothing to drink.");
+      return false;
     } else {
       Game.HUD.itemList("quaff", quaffables);  
+      return true;
     }
   },
 

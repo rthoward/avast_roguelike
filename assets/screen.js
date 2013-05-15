@@ -143,8 +143,9 @@ Game.Screen.playScreen = {
       } else if (inputData.keyCode === ROT.VK_COMMA) {
         Game.Dungeon.getPlayer().pickUp();
       } else if (inputData.keyCode === ROT.VK_Q) {
-        Game.Dungeon.getPlayer().tryQuaff();
-        this._itemAction = 'quaff';
+        if (Game.Dungeon.getPlayer().tryQuaff()) {
+          this._itemAction = 'quaff';
+        }
       }
 
       Game.Dungeon.getMap().getEngine().unlock();
