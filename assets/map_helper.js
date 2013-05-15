@@ -12,12 +12,12 @@ Game.MapHelper.genNormalMap = function(sizeX, sizeY) {
     }
   }
 
-	var genMap = new ROT.Map.Digger(sizeX, sizeY);
+	var genMap = new ROT.Map.Digger(sizeX, sizeY, {timeLimit: 5000});
   genMap.create(function(x, y, value) {
     if (value === 0) {
       map[x][y] = Game.Tile.floorTile;
     } else {
-      map[x][y] = Game.Tile.nullTile;
+      map[x][y] = Game.Tile.wallTile;
     }
   }); 
 
