@@ -19,9 +19,10 @@ Game.MapHelper.genNormalMap = function(sizeX, sizeY) {
     } else {
       map[x][y] = Game.Tile.wallTile;
     }
-  }); 
+  });   
 
-  var finalMap = new Game.Map(map, Game.Dungeon.getPlayer());
+  var finalMap = new Game.Map(map, Game.Dungeon.getPlayer(), "normal",
+    {rooms: genMap.getRooms(), corridors: genMap.getCorridors()});
 
   return finalMap;
 }
@@ -56,7 +57,7 @@ Game.MapHelper.genCaveMap = function(sizeX, sizeY) {
       }
     });
 
-    var finalMap = new Game.Map(map, Game.Dungeon.getPlayer());
+    var finalMap = new Game.Map(map, Game.Dungeon.getPlayer(), "cave");
 
     return finalMap;
 }

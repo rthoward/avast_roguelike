@@ -1,7 +1,11 @@
-Game.Map = function(tiles, player) {
+Game.Map = function(tiles, player, type, params) {
   this._tiles = tiles;
   this._width = tiles.length;
   this._height = tiles[0].length;
+
+  this._params = params || {};
+  this._rooms = this._params['rooms'] || '';
+  this._corridors = this._params['corridors'] || '';
 
   // list to hold all entities
   this._entities = [];
@@ -125,4 +129,46 @@ Game.Map.prototype.getRandomFloorPosition = function() {
   } while (!this.isEmptyFloor(x, y));
 
   return {x: x, y: y};
+}
+
+Game.Map.prototype.printStats = function() {
+  console.log("map stats: ");
+  console.log(this._rooms.length + " rooms");
+  console.log(this._corridors.length + " corridors");
+}
+
+Game.Map.prototype.changeRooms = function(new_tile) {
+  var coord = this.getRandomRoomCoord();
+
+  this.setTile(coord['x'], coord['y'], new_tile); 
+}
+
+Game.Map.prototype.getRandomRoomCoord = function() {
+  var random_room = Math.floor(Math.random() * this._rooms.length);
+  var room_coords = this.getRoomCoords(this._rooms[random_room]);
+
+  var random_coord = Math.floor(Math.random() * room_coords.length);
+
+  return room_coords[random_coord];
+}
+
+Game.Map.prototype.getRoomCoords = function(room) {
+  var cornerX = room.getLeft();
+  var cornerY = room.getTop();
+  var height = room.getBottom() - cornerY;
+  var width = room.getRight() - cornerX;  
+
+  var room_coords = [];
+
+  for (var x = 0; x < width + 1; x++) {
+    for (var y = 0; y < height + 1; y++) {        
+      room_coords.push({x: cornerX + x, y: cornerY + y});
+    }
+  }
+
+  return room_coords;
+}
+
+Game.Map.prototype.setDoorTiles = function() {
+ 
 }
