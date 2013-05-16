@@ -43,3 +43,17 @@ Game.Tile.downStairsTile = new Game.Tile({
   isWalkable: true,
   isDiggable: false
 });
+
+Game.Tile.goldTile = new Game.Tile({
+  character: '$',
+  foreground: 'yellow',
+  isWalkable: true,
+  isDiggable: false
+});
+
+Game.Tile.doorTile = new Game.Tile({
+  character: '+',
+  foreground: 'yellow',
+  isWalkable: false,
+  isDiggable: false
+});
